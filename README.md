@@ -136,3 +136,32 @@ El frontend define un **error handler 404** centralizado en `app.py` que renderi
 Los errores que devuelve la API se muestran como **mensajes flash** en la pagina actual (con la clase `flash--error`). Las respuestas de exito tambien usan flash messages (`flash--success`).
 
 Las redirecciones disparadas por `@requiere_login` informan al usuario el motivo (sesion faltante o rol insuficiente).
+
+## Glosario de terminos
+
+| Termino | Definicion |
+|---------|------------|
+| **Flask** | Microframework web de Python usado para construir tanto el frontend (este proyecto) como la API backend. |
+| **Frontend** | Aplicacion que renderiza las paginas HTML del lado del servidor y consume la API. En este proyecto corre en el puerto 5001. |
+| **Backend / API** | Servicio HTTP REST (`flask-auth-roles-example-api`) que expone los endpoints de autenticacion y usuarios. Corre en el puerto 5000. |
+| **API REST** | Estilo de arquitectura para servicios web basado en HTTP y recursos, donde cada request es independiente (stateless). |
+| **JWT (JSON Web Token)** | Token firmado que la API entrega tras un login exitoso. Contiene la identidad del usuario y se envia en cada request para autenticarse. |
+| **Bearer token** | Esquema de autenticacion HTTP donde el JWT viaja en el header `Authorization: Bearer <token>`. |
+| **Autenticacion** | Proceso de verificar la identidad del usuario (login con email + password). |
+| **Autorizacion** | Proceso de verificar que un usuario autenticado tenga permisos para acceder a un recurso (control por rol). |
+| **Rol** | Etiqueta que define los permisos del usuario. En este proyecto: `admin` (panel de administracion) y `usuario` (solo dashboard). |
+| **Sesion de Flask (`flask.session`)** | Diccionario asociado a una cookie firmada por el servidor. Aca se guarda el JWT y los datos del usuario logueado del lado del servidor. |
+| **Cookie de sesion firmada** | Cookie que Flask envia al navegador firmada con `SECRET_KEY`; el navegador no puede modificarla sin invalidar la firma. |
+| **`SECRET_KEY`** | Clave secreta con la que Flask firma las cookies de sesion. Debe ser unica y privada en produccion. |
+| **Stateless** | Caracteristica de la API: no guarda estado de sesion entre requests; cada request se autentica con su JWT. |
+| **SSR (Server-Side Rendering)** | Renderizado del HTML en el servidor (con Jinja2) antes de enviarlo al navegador. Es el enfoque usado en este frontend. |
+| **SPA (Single Page Application)** | Alternativa al SSR donde el frontend corre como JavaScript en el navegador y consume la API directamente. **No** es lo que hace este proyecto. |
+| **Jinja2** | Motor de templates que usa Flask para generar HTML dinamico (los archivos `.html` en `templates/`). |
+| **Template base (`base.html`)** | Plantilla con la estructura comun (header, footer, flash) de la que heredan las demas paginas. |
+| **Flash message** | Mensaje temporal de una sola lectura que Flask muestra al usuario tras una accion (exito o error). |
+| **Decorador `@requiere_login`** | Decorador propio (`flask_auth_roles_example_web/utils.py`) que protege vistas: exige sesion activa y, opcionalmente, un rol especifico. |
+| **Endpoint** | URL + metodo HTTP que expone una funcionalidad (por ejemplo `POST /login`). |
+| **XSS (Cross-Site Scripting)** | Ataque que inyecta JavaScript malicioso en el navegador. Guardar el JWT server-side reduce el riesgo de que sea robado por XSS. |
+| **`requests`** | Libreria de Python que el frontend usa para hacer llamadas HTTP a la API. |
+| **`virtualenv` / `pipenv`** | Herramientas para crear entornos virtuales de Python y aislar las dependencias del proyecto. |
+| **Bootstrapping (de admin)** | Proceso inicial para crear el primer usuario administrador, ya que el registro publico solo crea usuarios con rol `usuario`. |
