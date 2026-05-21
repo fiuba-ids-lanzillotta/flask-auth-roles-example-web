@@ -1,7 +1,7 @@
 import logging
 import os
 from flask import Flask, render_template
-from flask_auth_roles_web.routes.auth import auth_bp
+from flask_auth_roles_example_web.routes.auth import auth_bp
 
 logging.basicConfig(level=logging.DEBUG, format='%(levelname)s - %(name)s - %(message)s')
 

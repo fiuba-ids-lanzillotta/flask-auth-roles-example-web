@@ -30,10 +30,10 @@ El objetivo es mostrar como un frontend renderizado del lado del servidor puede 
 ## Estructura del proyecto
 
 ```
-flask-auth-roles-web/
+flask-auth-roles-example-web/
 ├── app.py                              # Entry point Flask (puerto 5001)
 ├── requirements.txt                    # Dependencias Python
-├── flask_auth_roles_web/
+├── flask_auth_roles_example_web/
 │   ├── constants.py                    # URL de la API backend y reglas de password
 │   ├── utils.py                        # Helpers de sesion + decorador @requiere_login
 │   ├── routes/
@@ -114,7 +114,7 @@ En produccion definir siempre un `SECRET_KEY` propio y secreto.
 2. Ingresa email + password; el frontend hace `POST /login` a la API.
 3. Si las credenciales son validas, la API devuelve `{token, usuario}`. El frontend guarda **ambos en la sesion de Flask** (`flask.session`).
 4. A partir de ahi, cada request a la API se hace con el header `Authorization: Bearer <token>` tomado de la sesion.
-5. Las vistas se protegen con el decorador `@requiere_login(rol=...)` definido en `flask_auth_roles_web/utils.py`:
+5. Las vistas se protegen con el decorador `@requiere_login(rol=...)` definido en `flask_auth_roles_example_web/utils.py`:
    - Si no hay sesion, redirige a `/login` con un mensaje flash.
    - Si el rol no coincide con el requerido, redirige al dashboard con un mensaje flash.
 6. Al hacer logout, se limpian las claves `token` y `usuario` de la sesion.
