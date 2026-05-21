@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Flask Auth Roles{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <header class="header">
+        <nav class="nav">
+            <a href="{{ url_for('auth.home') }}" class="nav__logo">
+                <span class="nav__logo-icon">&#128274;</span>
+                Flask Auth Roles
+            </a>
+            <ul class="nav__links">
+                {% if session.get('usuario') %}
+                    <li><a href="{{ url_for('auth.dashboard') }}" class="nav__link">Dashboard</a></li>
+                    {% if session['usuario']['rol'] == 'admin' %}
+                        <li><a href="{{ url_for('auth.admin') }}" class="nav__link">Admin</a></li>
+                    {% endif %}
+                    <li class="nav__user">
+                        <span class="nav__badge nav__badge--{{ session['usuario']['rol'] }}">
+                            {{ session['usuario']['rol'] }}
+                        </span>
+                        {{ session['usuario']['nombre'] }}
+                    </li>
+                    <li>
+                        <form action="{{ url_for('auth.logout') }}" method="POST" class="nav__form">
+                            <button type="submit" class="nav__btn">Cerrar sesión</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{{ url_for('auth.login') }}" class="nav__link">Login</a></li>
+                    <li><a href="{{ url_for('auth.register') }}" class="nav__link">Registrarme</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                <div class="flash flash--{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Flask Auth Roles &mdash; Ejercicio integrador IDS</p>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

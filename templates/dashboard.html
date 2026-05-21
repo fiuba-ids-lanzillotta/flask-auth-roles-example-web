@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Flask Auth Roles - Dashboard{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero__content">
+        <h1 class="hero__title">Hola, {{ usuario.nombre }}</h1>
+        <p class="hero__subtitle">Bienvenido a tu panel de usuario</p>
+    </div>
+</section>
+
+<section class="search-section">
+    <div class="search-card">
+        <h2 class="search-card__title">Tus datos</h2>
+        <ul class="data-list">
+            <li><strong>ID:</strong> {{ usuario.id }}</li>
+            <li><strong>Email:</strong> {{ usuario.email }}</li>
+            <li><strong>Nombre:</strong> {{ usuario.nombre }}</li>
+            <li>
+                <strong>Rol:</strong>
+                <span class="nav__badge nav__badge--{{ usuario.rol }}">{{ usuario.rol }}</span>
+            </li>
+        </ul>
+
+        {% if usuario.rol == 'admin' %}
+        <div class="form__actions form__actions--single" style="margin-top: 1.5rem;">
+            <a href="{{ url_for('auth.admin') }}" class="form__btn form__btn--submit">
+                Ir al panel de admin
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

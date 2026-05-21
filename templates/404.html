@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Flask Auth Roles - 404{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero__content">
+        <h1 class="hero__title">404</h1>
+        <p class="hero__subtitle">{{ error.description if error and error.description else 'Pagina no encontrada' }}</p>
+    </div>
+</section>
+
+<section class="search-section">
+    <div class="search-card" style="text-align: center;">
+        <a href="{{ url_for('auth.home') }}" class="form__btn form__btn--submit">Volver al inicio</a>
+    </div>
+</section>
+
+{% endblock %}

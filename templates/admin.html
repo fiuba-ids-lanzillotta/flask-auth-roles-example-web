@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Flask Auth Roles - Admin{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero__content">
+        <h1 class="hero__title">Panel de administración</h1>
+        <p class="hero__subtitle">Listado de usuarios registrados</p>
+    </div>
+</section>
+
+<section class="table-section">
+    <div class="table-card">
+        {% if usuarios %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Nombre</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in usuarios %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.nombre }}</td>
+                    <td>
+                        <span class="nav__badge nav__badge--{{ u.rol }}">{{ u.rol }}</span>
+                    </td>
+                    <td>
+                        {% if u.id != usuario.id %}
+                        <form action="{{ url_for('auth.eliminar_usuario', usuario_id=u.id) }}"
+                              method="POST"
+                              onsubmit="return confirm('¿Eliminar al usuario {{ u.email }}?');"
+                              class="nav__form">
+                            <button type="submit" class="form__btn form__btn--danger">Eliminar</button>
+                        </form>
+                        {% else %}
+                        <span class="text-muted">(vos)</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="empty">No hay usuarios para mostrar.</p>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
