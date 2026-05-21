@@ -1,5 +1,5 @@
-# URL base de la API del backend (flask-auth-roles-api)
-API_BASE_URL = 'http://localhost:5000/flask_auth_roles_api'
+# URL base de la API del backend (flask-auth-roles-example-api)
+API_BASE_URL = 'http://localhost:5000/flask_auth_roles_example_api'
 
 # Roles soportados
 ROL_ADMIN = 'admin'

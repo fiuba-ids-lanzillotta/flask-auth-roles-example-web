@@ -21,7 +21,7 @@ El objetivo es mostrar como un frontend renderizado del lado del servidor puede 
      |
      |  requests.get/post (HTTP) + header: Authorization: Bearer <jwt>
      v
-  Flask API (flask-auth-roles-api, puerto 5000)
+  Flask API (flask-auth-roles-example-api, puerto 5000)
      |
      v
   MySQL
@@ -55,7 +55,7 @@ flask-auth-roles-example-web/
 ## Requisitos previos
 
 - Python 3.10+
-- La API (`flask-auth-roles-api`) corriendo en el puerto 5000
+- La API (`flask-auth-roles-example-api`) corriendo en el puerto 5000
 - Al menos un usuario admin creado en la API (ver el README del backend para el bootstrapping)
 
 ## Instalacion y ejecucion
